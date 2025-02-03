@@ -45,6 +45,16 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
         } catch (e) {
           _result = 'Error';
         }
+      } else if (text == 'x²') {
+        try {
+          final expression = Expression.parse(_expression);
+          final evaluator = const ExpressionEvaluator();
+          final result = evaluator.eval(expression, {});
+          _expression = (result * result).toString();
+          _result = _expression;
+        } catch (e) {
+          _result = 'Error';
+        }
       } else {
         _expression += text;
       }
@@ -75,8 +85,7 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                     ),
                     Text(
                       _result,
-                      style: const TextStyle(
-                          fontSize: 32, fontWeight: FontWeight.bold),
+                      style: const TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
                     ),
                   ],
                 ),
@@ -88,6 +97,7 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
           _buildButtonRow(['4', '5', '6', '*']),
           _buildButtonRow(['1', '2', '3', '-']),
           _buildButtonRow(['C', '0', '=', '+']),
+          _buildButtonRow(['x²']),
         ],
       ),
     );
